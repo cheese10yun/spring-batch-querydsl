@@ -71,6 +71,8 @@ public class QuerydslNoOffsetPagingItemReaderGroupByTest {
         Manufacture read2 = reader.read();
         Manufacture read3 = reader.read();
 
+        reader.close();
+
         //then
         assertThat(read1.getName()).isEqualTo(expected1);
         assertThat(read2.getName()).isEqualTo(expected2);
@@ -105,6 +107,8 @@ public class QuerydslNoOffsetPagingItemReaderGroupByTest {
         Manufacture read2 = reader.read();
         Manufacture read3 = reader.read();
 
+        reader.close();
+
         //then
         assertThat(read1.getName()).isEqualTo(expected2);
         assertThat(read2.getName()).isEqualTo(expected1);
@@ -118,10 +122,7 @@ public class QuerydslNoOffsetPagingItemReaderGroupByTest {
         final Long fooId = fooRepository.save(new Foo("foo1")).getId();
 
         final QuerydslNoOffsetNumberOptions<Foo, Long> options = new QuerydslNoOffsetNumberOptions<>(foo.id, Expression.DESC);
-        final QuerydslNoOffsetPagingItemReader<Foo> reader = new QuerydslNoOffsetPagingItemReader<>(emf,
-            chunkSize,
-            options,
-            queryFactory -> queryFactory
+        final QuerydslNoOffsetPagingItemReader<Foo> reader = new QuerydslNoOffsetPagingItemReader<>(emf, chunkSize, options, queryFactory -> queryFactory
                 .selectFrom(foo)
                 .where(foo.id.eq(fooId))
         );
@@ -129,6 +130,8 @@ public class QuerydslNoOffsetPagingItemReaderGroupByTest {
 
         //when
         final Foo foo = reader.read();
+
+        reader.close();
 
         //then
         assertThat(foo.getId()).isEqualTo(fooId);
