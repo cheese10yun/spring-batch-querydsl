@@ -63,6 +63,8 @@ public class QuerydslPagingItemReaderTest {
         Manufacture read2 = reader.read();
         Manufacture read3 = reader.read();
 
+        reader.close();
+
         //then
         assertThat(read1.getPrice()).isEqualTo(expected1);
         assertThat(read2.getPrice()).isEqualTo(expected2);
@@ -84,6 +86,8 @@ public class QuerydslPagingItemReaderTest {
 
         //when
         Manufacture read1 = reader.read();
+
+        reader.close();
 
         //then
         assertThat(read1).isNull();

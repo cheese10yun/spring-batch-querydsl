@@ -112,6 +112,8 @@ public class QuerydslNoOffsetPagingItemReaderTest {
         Manufacture read2 = reader.read();
         Manufacture read3 = reader.read();
 
+        reader.close();
+
         //then
         assertThat(read1.getPrice()).isEqualTo(expected1);
         assertThat(read2.getPrice()).isEqualTo(expected2);
@@ -144,6 +146,8 @@ public class QuerydslNoOffsetPagingItemReaderTest {
         Manufacture read2 = reader.read();
         Manufacture read3 = reader.read();
 
+        reader.close();
+
         //then
         assertThat(read1.getPrice()).isEqualTo(expected2);
         assertThat(read2.getPrice()).isEqualTo(expected1);
@@ -167,6 +171,8 @@ public class QuerydslNoOffsetPagingItemReaderTest {
 
         //when
         Manufacture read1 = reader.read();
+
+        reader.close();
 
         //then
         assertThat(read1).isNull();
@@ -201,6 +207,8 @@ public class QuerydslNoOffsetPagingItemReaderTest {
         Manufacture read3 = reader.read();
         Manufacture read4 = reader.read();
 
+        reader.close();
+
         //then
         assertThat(read1.getPrice()).isEqualTo(expected1);
         assertThat(read2.getPrice()).isEqualTo(expected2);
@@ -234,6 +242,8 @@ public class QuerydslNoOffsetPagingItemReaderTest {
         Manufacture read2 = reader.read();
         Manufacture read3 = reader.read();
 
+        reader.close();
+
         //then
         assertThat(read1.getCategoryNo()).isEqualTo(expected2);
         assertThat(read2.getCategoryNo()).isEqualTo(expected1);
@@ -257,6 +267,8 @@ public class QuerydslNoOffsetPagingItemReaderTest {
 
         //when
         Manufacture read1 = reader.read();
+
+        reader.close();
 
         //then
         assertThat(read1).isNull();
@@ -287,6 +299,8 @@ public class QuerydslNoOffsetPagingItemReaderTest {
         Manufacture read1 = reader.read();
         Manufacture read2 = reader.read();
         Manufacture read3 = reader.read();
+
+        reader.close();
 
         //then
         assertThat(read1.getName()).isEqualTo(expected2);
@@ -319,6 +333,8 @@ public class QuerydslNoOffsetPagingItemReaderTest {
         Manufacture read1 = reader.read();
         Manufacture read2 = reader.read();
         Manufacture read3 = reader.read();
+
+        reader.close();
 
         //then
         assertThat(read1.getName()).isEqualTo(expected1);
