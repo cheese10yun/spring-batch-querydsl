@@ -9,11 +9,11 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class Foo extends EntityAuditing {
+public class Foo2 extends EntityAuditing2 {
 
     private String name;
 
-    public Foo(String name) {
+    public Foo2(String name) {
         this.name = name;
     }
 }

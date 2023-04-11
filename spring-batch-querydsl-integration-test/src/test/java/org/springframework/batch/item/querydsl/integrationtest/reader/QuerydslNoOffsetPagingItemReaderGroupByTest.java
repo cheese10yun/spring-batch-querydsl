@@ -2,6 +2,7 @@ package org.springframework.batch.item.querydsl.integrationtest.reader;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.batch.item.querydsl.integrationtest.entity.QFoo.foo;
+import static org.springframework.batch.item.querydsl.integrationtest.entity.QFoo2.foo2;
 import static org.springframework.batch.item.querydsl.integrationtest.entity.QManufacture.manufacture;
 
 import java.time.LocalDate;
@@ -12,6 +13,8 @@ import org.junit.runner.RunWith;
 import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.item.querydsl.integrationtest.TestBatchConfig;
 import org.springframework.batch.item.querydsl.integrationtest.entity.Foo;
+import org.springframework.batch.item.querydsl.integrationtest.entity.Foo2;
+import org.springframework.batch.item.querydsl.integrationtest.entity.Foo2Repository;
 import org.springframework.batch.item.querydsl.integrationtest.entity.FooRepository;
 import org.springframework.batch.item.querydsl.integrationtest.entity.Manufacture;
 import org.springframework.batch.item.querydsl.integrationtest.entity.ManufactureRepository;
@@ -33,6 +36,9 @@ public class QuerydslNoOffsetPagingItemReaderGroupByTest {
 
     @Autowired
     private FooRepository fooRepository;
+
+    @Autowired
+    private Foo2Repository foo2Repository;
 
     @Autowired
     private EntityManagerFactory emf;
@@ -130,6 +136,28 @@ public class QuerydslNoOffsetPagingItemReaderGroupByTest {
 
         //when
         final Foo foo = reader.read();
+
+        reader.close();
+
+        //then
+        assertThat(foo.getId()).isEqualTo(fooId);
+    }
+
+    @Test
+    public void super_super_class의_필드_사용_가능하다() throws Exception {
+        //given
+        int chunkSize = 1;
+        final Long fooId = foo2Repository.save(new Foo2("foo2")).getId();
+
+        final QuerydslNoOffsetNumberOptions<Foo2, Long> options = new QuerydslNoOffsetNumberOptions<>(foo2.id, Expression.DESC);
+        final QuerydslNoOffsetPagingItemReader<Foo2> reader = new QuerydslNoOffsetPagingItemReader<>(emf, chunkSize, options, queryFactory -> queryFactory
+                .selectFrom(foo2)
+                .where(foo2.id.eq(fooId))
+        );
+        reader.open(new ExecutionContext());
+
+        //when
+        final Foo2 foo = reader.read();
 
         reader.close();
 
